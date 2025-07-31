@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Talent System</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+
+  <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+
+<h2>Employee Locations Map</h2>
+
+<!-- Leaflet CSS -->
+
+<!-- Map Container -->
+<div id="map" style="height: 500px;"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+<script>
+    // Initialize map
+    var map = L.map('map').setView([31.5204, 74.3587], 5); // Center on Pakistan
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Employees data from server
+    // var employees = <%- JSON.stringify(employees) %>;
+
+    var employees = <%- JSON.stringify(employees || []) %>;
+
+
+    employees.forEach((emp, index) => {
+        if(emp.latitude && emp.longitude) {
+            const marker = L.marker([emp.latitude, emp.longitude]).addTo(map);
+
+            // Popup with employee details
+            marker.bindPopup(`<b>${emp.name}</b><br>${emp.position}<br>${emp.location}`);
+
+            // Add number label above marker
+            L.circleMarker([emp.latitude, emp.longitude], {
+                radius: 10,
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5
+            })
+            .addTo(map)
+            .bindTooltip(`${index + 1}`, { permanent: true, direction: "top" });
+        }
+    });
+</script>
+</body>
+</html>

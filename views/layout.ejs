@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Talent System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+
+  <% if (typeof showNav === 'undefined' || showNav) { %>
+    <nav class="navbar navbar-expand-lg bg-light shadow-sm mb-4 px-3">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="d-flex gap-2">
+          <a href="/home" class="btn btn-outline-dark">🏠 Home</a>
+          <a href="/settings" class="btn btn-outline-primary">⚙️ Settings</a>
+          <a href="/employee-form" class="btn btn-outline-warning">👨‍💼 Add Employee</a>
+          <a href="/dashboard" class="btn btn-outline-info">📊 Dashboard</a>
+          <a href="/employees-map" class="btn btn-outline-secondary">🗺️ Map</a>
+          <a href="/notifications" class="btn btn-outline-danger position-relative">
+            🔔 Notifications
+            <span id="notifCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              0
+            </span>
+          </a>
+        </div>
+
+        <form action="/logout" method="POST">
+          <button class="btn btn-outline-danger">🚪 Logout</button>
+        </form>
+      </div>
+    </nav>
+  <% } %>
+
+  <div class="container my-4">
+    <!-- This is where your views will be injected -->
+    <%- body %>
+  </div>
+
+  <script>
+    async function loadNotifications() {
+      const res = await fetch('/notifications/count');
+      const data = await res.json();
+      const notif = document.getElementById('notifCount');
+      if (data.count > 0) {
+        notif.textContent = data.count;
+        notif.style.display = 'inline-block';
+      } else {
+        notif.style.display = 'none';
+      }
+    }
+
+    loadNotifications();
+    setInterval(loadNotifications, 10000); // update every 10 seconds
+  </script>
+
+</body>
+</html>

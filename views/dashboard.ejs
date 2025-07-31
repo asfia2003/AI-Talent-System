@@ -1,0 +1,52 @@
+<h2 class="text-center mb-4">📊 Dashboard Overview</h2>
+
+<div class="row">
+  <!-- Applicant Chart -->
+  <div class="col-md-6 mb-4">
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="card-title text-center">Applicants (Suitable vs Not Suitable)</h5>
+        <canvas id="applicantChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Employee Chart -->
+  <div class="col-md-6 mb-4">
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="card-title text-center">Employees (Satisfied vs At Risk)</h5>
+        <canvas id="employeeChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const applicantData = <%- JSON.stringify(applicantData || []) %>;
+  const employeeData = <%- JSON.stringify(employeeData || []) %>;
+
+  new Chart(document.getElementById('applicantChart'), {
+    type: 'pie',
+    data: {
+      labels: ['Suitable', 'Not Suitable'],
+      datasets: [{
+        data: applicantData,
+        backgroundColor: ['#28a745', '#dc3545']
+      }]
+    }
+  });
+
+  new Chart(document.getElementById('employeeChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Satisfied', 'At Risk'],
+      datasets: [{
+        data: employeeData,
+        backgroundColor: ['#17a2b8', '#ffc107']
+      }]
+    }
+  });
+</script>

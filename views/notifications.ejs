@@ -1,0 +1,20 @@
+<h2 class="mb-4 text-center">🔔 New Applicants</h2>
+
+<table class="table table-bordered text-center">
+  <thead class="table-dark">
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% applicants.forEach((applicant, index) => { %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= applicant.name %></td>
+        <td><%= applicant.email %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

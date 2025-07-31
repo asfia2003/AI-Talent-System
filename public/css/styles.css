@@ -1,0 +1,14 @@
+body {
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+h2 {
+  color: #343a40;
+  margin-bottom: 20px;
+}
+
+.btn {
+  margin-right: 5px;
+}
+ 
