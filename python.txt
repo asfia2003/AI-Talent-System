@@ -1,0 +1,11 @@
+
+ 
+cd AI-TALENT-SYSTEM-PROJECT
+cd ai-talent-system   
+nodemon server.js
+
+
+cd AI-TALENT-SYSTEM-PROJECT\python-ai-service
+venv\Scripts\activate
+python train_model.py
+python app.py
